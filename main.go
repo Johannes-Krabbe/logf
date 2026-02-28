@@ -18,6 +18,8 @@ func main() {
 }
 
 func run() error {
+	cfg := loadConfig()
+
 	tty, err := os.Open("/dev/tty")
 	if err != nil {
 		return fmt.Errorf("open /dev/tty: %w", err)
@@ -89,7 +91,11 @@ func run() error {
 		var matched []string
 		for _, l := range allLines {
 			if matchesFilter(l, filters) {
-				matched = append(matched, l)
+				display := l
+				if cfg.TransformLogs {
+					display = transformLine(l, cfg.Transform)
+				}
+				matched = append(matched, display)
 			}
 		}
 		// Clear scrollback buffer and entire scroll region
@@ -151,7 +157,11 @@ func run() error {
 			}
 			allLines = append(allLines, line)
 			if matchesFilter(line, activeFilters) {
-				fmt.Fprintf(os.Stdout, "\033[%d;1H\r\n%s", scrollHeight, line)
+				display := line
+				if cfg.TransformLogs {
+					display = transformLine(line, cfg.Transform)
+				}
+				fmt.Fprintf(os.Stdout, "\033[%d;1H\r\n%s", scrollHeight, display)
 			}
 			renderPrompt()
 
