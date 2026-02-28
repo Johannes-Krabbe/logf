@@ -1,0 +1,25 @@
+version: 2
+
+builds:
+  - binary: logf
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+
+homebrew_casks:
+  - name: logf
+    binaries:
+      - logf
+    homepage: "https://github.com/Johannes-Krabbe/logf"
+    description: "Interactive JSON log viewer for the terminal"
+    repository:
+      owner: Johannes-Krabbe
+      name: homebrew-tap
+
+changelog:
+  sort: asc
