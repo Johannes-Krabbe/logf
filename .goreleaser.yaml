@@ -15,6 +15,9 @@ homebrew_casks:
   - name: logf
     binaries:
       - logf
+    hooks:
+      post:
+        install: 'system_command "/usr/bin/xattr", args: ["-d", "com.apple.quarantine", "#{staged_path}/logf"]'
     homepage: "https://github.com/Johannes-Krabbe/logf"
     description: "Interactive JSON log viewer for the terminal"
     repository:

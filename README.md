@@ -6,6 +6,13 @@ An interactive JSON log viewer for the terminal. Pipe in structured logs and fil
 your-app | logf
 ```
 
+## Install
+
+```bash
+brew tap Johannes-Krabbe/tap
+brew install logf
+```
+
 ## Features
 
 - **Live filtering** — type filter expressions to narrow down logs instantly
